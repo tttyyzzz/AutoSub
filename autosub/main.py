@@ -117,7 +117,6 @@ def main():
     audio_directory = os.path.join(base_directory, "audio")
     video_file_name = input_file.split(os.sep)[-1].split(".")[0]
     audio_file_name = os.path.join(audio_directory, video_file_name + ".wav")
-    srt_file_name = os.path.join(output_directory, video_file_name + ".srt")
     srt_extension = ".srt" if not args.vtt else ".vtt"
     srt_file_name = os.path.join(output_directory, video_file_name + srt_extension)
 
@@ -153,7 +152,6 @@ def main():
     else:
         print("\nVTT file saved to", srt_file_name)
             
-    print("\nSRT file saved to", srt_file_name)
     file_handle.close()
         
 if __name__ == "__main__":
