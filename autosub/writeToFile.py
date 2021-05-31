@@ -4,7 +4,7 @@
 import os
 import datetime
 
-def write_to_file(file_handle, inferred_text, line_count, limits, vtt, cues):
+def write_to_file(file_handle, full_transcript_handle, inferred_text, line_count, limits, vtt, cues):
     """Write the inferred text to SRT file
     Follows a specific format for SRT files
 
@@ -14,7 +14,8 @@ def write_to_file(file_handle, inferred_text, line_count, limits, vtt, cues):
         line_count : subtitle line count 
         limits : starting and ending times for text
     """
-
+    full_transcript_handle.write(inferred_text + "\n")
+    
     sep = '.' if vtt else ','
     
     d = str(datetime.timedelta(seconds=float(limits[0])))
