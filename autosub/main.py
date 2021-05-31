@@ -32,7 +32,7 @@ def sort_alphanumeric(data):
     return sorted(data, key = alphanum_key)
 
 
-def ds_process_audio(ds, audio_file, file_handle, vtt):  
+def ds_process_audio(ds, audio_file, file_handle, full_transcript_handle, vtt):  
     """Run DeepSpeech inference on each audio file generated after silenceRemoval
     and write to file pointed by file_handle
 
@@ -71,7 +71,7 @@ def ds_process_audio(ds, audio_file, file_handle, vtt):
 
     if len(infered_text) != 0:
         line_count += 1
-        write_to_file(file_handle, infered_text, line_count, limits, vtt, cues)
+        write_to_file(file_handle, full_transcript_handle, infered_text, line_count, limits, vtt, cues)
 
 
 def main():
@@ -130,6 +130,11 @@ def main():
     print("Splitting on silent parts in audio file")
     silenceRemoval(audio_file_name)
     
+    # full transcript
+    full_transcript_name = os.path.join(output_directory, video_file_name + ".txt")
+    full_transcript_handle = open(full_transcript_name, "a+")
+    full_transcript_handle.seek(0)
+    
     # Output SRT or VTT file
     file_handle = open(srt_file_name, "a+")
     file_handle.seek(0)
@@ -145,7 +150,7 @@ def main():
         
         # Dont run inference on the original audio file
         if audio_segment_path.split(os.sep)[-1] != audio_file_name.split(os.sep)[-1]:
-            ds_process_audio(ds, audio_segment_path, file_handle, args.vtt)
+            ds_process_audio(ds, audio_segment_path, file_handle, full_transcript_handle, args.vtt)
 
     if not args.vtt:        
         print("\nSRT file saved to", srt_file_name)
@@ -153,6 +158,7 @@ def main():
         print("\nVTT file saved to", srt_file_name)
             
     file_handle.close()
+    full_transcript_handle.close()
         
 if __name__ == "__main__":
     main()
