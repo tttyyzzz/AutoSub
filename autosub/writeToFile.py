@@ -36,7 +36,7 @@ def write_to_file(file_handle, full_transcript_handle, inferred_text, line_count
         file_handle.write(inferred_text + "\n\n")
     else:
         file_handle.write(from_dur + " --> " + to_dur + "  align:start position:0%\n")
-        file_handle.write(inferred_text + "\n")
+        file_handle.write(inferred_text + "\n\n")
         
 #         words = [f"<c> {x}</c>" for x in inferred_text.split(" ")]
 #         cue_tags = [f"<{str(datetime.timedelta(seconds=cue))}>" for cue in cues]
