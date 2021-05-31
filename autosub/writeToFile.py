@@ -37,7 +37,7 @@ def write_to_file(file_handle, inferred_text, line_count, limits, vtt, cues):
         file_handle.write(from_dur + " --> " + to_dur + "  align:start position:0%\n")
         file_handle.write(inferred_text + "\n")
         
-        words = [f"<c> {x}</c>" for x in inferred_text.split(" ")]
-        cue_tags = [f"<{str(datetime.timedelta(seconds=cue))}>" for cue in cues]
-        words_cues_mixed = [val for pair in zip(cue_tags, words) for val in pair][1:]
-        file_handle.write(''.join(words_cues_mixed) + "\n\n")
+#         words = [f"<c> {x}</c>" for x in inferred_text.split(" ")]
+#         cue_tags = [f"<{str(datetime.timedelta(seconds=cue))}>" for cue in cues]
+#         words_cues_mixed = [val for pair in zip(cue_tags, words) for val in pair][1:]
+#         file_handle.write(''.join(words_cues_mixed) + "\n\n")
