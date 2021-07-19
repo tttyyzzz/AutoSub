@@ -23,9 +23,9 @@ In the age of OTT platforms, there are still some who prefer to download movies/
 
 ## Installation
 
-* Clone the repo. All further steps should be performed while in the `AutoSub/` directory
+* Clone the repo into you home directory. 
     ```bash
-    $ git clone https://github.com/abhirooptalasila/AutoSub
+    $ git clone https://github.com/qlchan24/AutoSub
     $ cd AutoSub
     ```
 * Create a pip virtual environment to install the required packages
@@ -40,10 +40,6 @@ In the age of OTT platforms, there are still some who prefer to download movies/
     $ wget https://github.com/mozilla/DeepSpeech/releases/download/v0.9.3/deepspeech-0.9.3-models.pbmm
     # Scorer file (~950 MB)
     $ wget https://github.com/mozilla/DeepSpeech/releases/download/v0.9.3/deepspeech-0.9.3-models.scorer
-    ```
-* Create two folders `audio/` and `output/` to store audio segments and final SRT file
-    ```bash
-    $ mkdir audio output
     ```
 * Install FFMPEG. If you're running Ubuntu, this should work fine.
     ```bash
@@ -71,12 +67,12 @@ In the age of OTT platforms, there are still some who prefer to download movies/
 
 ## How-to example
 
-* Make sure the model and scorer files are in the root directory. They are automatically loaded
+* Make sure the model and scorer files are in the AutoSub directory. They are automatically loaded
 * After following the installation instructions, you can run `autosub/main.py` as given below. The `--file` argument is the video file for which SRT file is to be generated
     ```bash
     $ python3 autosub/main.py --file ~/movie.mp4
     ```
-* After the script finishes, the SRT file is saved in `output/`
+* After the script finishes, the SRT file is saved in the same folder as the input file
 * Open the video file and add this SRT file as a subtitle, or you can just drag and drop in VLC.
 * WEB VTT Output (Credits - [@DerrickGibbs1](https://github.com/DerrickGibbs1)): Output VTT file including cue points for individual words. Nearly identical to VTT file downloaded from YouTube with youtube_dl.
     ```bash
