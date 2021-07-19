@@ -15,7 +15,7 @@ from segmentAudio import silenceRemoval
 from audioProcessing import extract_audio, convert_samplerate
 from writeToFile import write_to_file
 
-AUTOSUB_HOME = "~/Autosub"
+AUTOSUB_HOME = "~/AutoSub"
 
 # Line count for SRT file
 line_count = 0
