@@ -17,6 +17,4 @@ ENV scorer_url=https://github.com/mozilla/DeepSpeech/releases/download/v$model/d
 RUN wget ${model_url}
 RUN wget ${scorer_url}
 
-RUN mkdir audio output
-
 ENTRYPOINT ["python3", "autosub/main.py"]
