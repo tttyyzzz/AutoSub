@@ -15,6 +15,8 @@ from segmentAudio import silenceRemoval
 from audioProcessing import extract_audio, convert_samplerate
 from writeToFile import write_to_file
 
+AUTOSUB_HOME = "~/Autosub"
+
 # Line count for SRT file
 line_count = 0
 
@@ -85,7 +87,7 @@ def main():
                         help='Output a vtt file with cue points for individual words instead of a srt file')
     args = parser.parse_args()
     
-    for x in os.listdir():
+    for x in os.listdir(AUTOSUB_HOME):
         if x.endswith(".pbmm"):
             print("Model: ", os.path.join(os.getcwd(), x))
             ds_model = os.path.join(os.getcwd(), x)
@@ -112,16 +114,16 @@ def main():
         print(args.file, ": No such file exists")
         sys.exit(1)
     
-    base_directory = os.getcwd()
-    output_directory = os.path.join(base_directory, "output")
-    audio_directory = os.path.join(base_directory, "audio")
+    temp_directory = os.path.join(AUTOSUB_HOME, "temp")
+    audio_directory = os.path.join(temp_directory, "audio")
     video_file_name = input_file.split(os.sep)[-1].split(".")[0]
     audio_file_name = os.path.join(audio_directory, video_file_name + ".wav")
     srt_extension = ".srt" if not args.vtt else ".vtt"
-    srt_file_name = os.path.join(output_directory, video_file_name + srt_extension)
+    srt_file_name = os.path.splitext(input_file)[0] + srt_extension
 
-    # Clean audio/ directory 
-    shutil.rmtree(audio_directory)
+    # clean temp dir
+    shutil.rmtree(temp_directory)
+    os.mkdir(temp_directory)
     os.mkdir(audio_directory)
 
     # Extract audio from input video file
@@ -131,7 +133,7 @@ def main():
     silenceRemoval(audio_file_name)
     
     # full transcript
-    full_transcript_name = os.path.join(output_directory, video_file_name + ".txt")
+    full_transcript_name = os.path.join(os.path.splitext(input_file)[0] + ".txt")
     full_transcript_handle = open(full_transcript_name, "a+")
     full_transcript_handle.seek(0)
     
@@ -159,6 +161,9 @@ def main():
             
     file_handle.close()
     full_transcript_handle.close()
+    
+    # Delete audio directory
+    shutil.rmtree(temp_directory)
         
 if __name__ == "__main__":
     main()
