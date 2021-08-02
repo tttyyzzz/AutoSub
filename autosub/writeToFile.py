@@ -22,13 +22,13 @@ def write_to_file(file_handle, full_transcript_handle, inferred_text, line_count
     try:
         from_dur = "0" + str(d.split(".")[0]) + sep + str(d.split(".")[-1][:3])
     except:
-        from_dur = "0" + str(d) + sep + "00"
+        from_dur = "0" + str(d) + sep + "000"
         
     d = str(datetime.timedelta(seconds=float(limits[1])))
     try:
         to_dur = "0" + str(d.split(".")[0]) + sep + str(d.split(".")[-1][:3])
     except:
-        to_dur = "0" + str(d) + sep + "00"
+        to_dur = "0" + str(d) + sep + "000"
 
     if not vtt:    
         file_handle.write(str(line_count) + "\n")
