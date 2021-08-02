@@ -20,13 +20,13 @@ def write_to_file(file_handle, full_transcript_handle, inferred_text, line_count
     
     d = str(datetime.timedelta(seconds=float(limits[0])))
     try:
-        from_dur = "0" + str(d.split(".")[0]) + sep + str(d.split(".")[-1][:2])
+        from_dur = "0" + str(d.split(".")[0]) + sep + str(d.split(".")[-1][:3])
     except:
         from_dur = "0" + str(d) + sep + "00"
         
     d = str(datetime.timedelta(seconds=float(limits[1])))
     try:
-        to_dur = "0" + str(d.split(".")[0]) + sep + str(d.split(".")[-1][:2])
+        to_dur = "0" + str(d.split(".")[0]) + sep + str(d.split(".")[-1][:3])
     except:
         to_dur = "0" + str(d) + sep + "00"
 
