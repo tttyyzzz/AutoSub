@@ -83,14 +83,26 @@ def ds_process_audio(ds, audio_file, file_handle, full_transcript_handle, vtt):
 def main():
     global line_count
     print("AutoSub\n")
+    global AUTOSUB_HOME
+    # try:
+    #     arg0 = sys.argv[1]
+    #     AUTOSUB_HOME = arg0
+    # except:
+    #     pass
+    # global line_count
+    # print("AutoSub\n")
 
     parser = argparse.ArgumentParser(description="AutoSub")
     parser.add_argument('--file', required=True,
                         help='Input video file')
     parser.add_argument('--vtt', dest="vtt", action="store_true",
                         help='Output a vtt file with cue points for individual words instead of a srt file')
+    parser.add_argument("-i","--include",help="modify AUTOSUB_HOME variable. This variable is to find .pbmm files for models and .scorer for scorer files.")
     args = parser.parse_args()
 
+    if args.include:
+        print(AUTOSUB_HOME)
+        AUTOSUB_HOME = args.include
     for x in os.listdir(AUTOSUB_HOME):
         if x.endswith(".pbmm"):
             print("Model: ", os.path.join(AUTOSUB_HOME, x))
