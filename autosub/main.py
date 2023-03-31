@@ -17,6 +17,7 @@ from writeToFile import write_to_file
 
 AUTOSUB_HOME = os.path.join(os.path.expanduser(
     "~"), "dcds", "SpeechAnalyser", "AutoSub")
+MANUAL_MKDIR = 0
 
 # Line count for SRT file
 line_count = 0
@@ -84,6 +85,7 @@ def main():
     global line_count
     print("AutoSub\n")
     global AUTOSUB_HOME
+    global MANUAL_MKDIR
     # try:
     #     arg0 = sys.argv[1]
     #     AUTOSUB_HOME = arg0
@@ -98,11 +100,14 @@ def main():
     parser.add_argument('--vtt', dest="vtt", action="store_true",
                         help='Output a vtt file with cue points for individual words instead of a srt file')
     parser.add_argument("-i","--include",help="modify AUTOSUB_HOME variable. This variable is to find .pbmm files for models and .scorer for scorer files.")
+    parser.add_argument("--manualmkdir",help="create \"/temp\" and \"/audio\" files manually")
     args = parser.parse_args()
 
-    if args.include:
-        print(AUTOSUB_HOME)
+    if args.include:  
         AUTOSUB_HOME = args.include
+        print(AUTOSUB_HOME)
+    if args.manualmkdir:
+        MANUAL_MKDIR = 1
     for x in os.listdir(AUTOSUB_HOME):
         if x.endswith(".pbmm"):
             print("Model: ", os.path.join(AUTOSUB_HOME, x))
@@ -138,8 +143,9 @@ def main():
     srt_file_name = os.path.splitext(input_file)[0] + srt_extension
 
     # clean temp dir
-    os.mkdir(temp_directory)
-    os.mkdir(audio_directory)
+    if not MANUAL_MKDIR:
+        os.mkdir(temp_directory)
+        os.mkdir(audio_directory)
 
     # Extract audio from input video file
     extract_audio(input_file, audio_file_name)
