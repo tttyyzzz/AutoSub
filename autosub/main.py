@@ -100,10 +100,10 @@ def main():
     parser.add_argument('--vtt', dest="vtt", action="store_true",
                         help='Output a vtt file with cue points for individual words instead of a srt file')
     parser.add_argument("-i","--include",help="modify AUTOSUB_HOME variable. This variable is to find .pbmm files for models and .scorer for scorer files.")
-    parser.add_argument("--manualmkdir",help="create \"/temp\" and \"/audio\" files manually")
+    parser.add_argument("--manualmkdir",action="store_true",help="create \"/temp\" and \"/audio\" files manually")
     args = parser.parse_args()
 
-    if args.include:  
+    if args.include:    
         AUTOSUB_HOME = args.include
         print(AUTOSUB_HOME)
     if args.manualmkdir:
