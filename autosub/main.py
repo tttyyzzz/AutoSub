@@ -14,6 +14,7 @@ from deepspeech import Model, version
 from segmentAudio import silenceRemoval
 from audioProcessing import extract_audio, convert_samplerate
 from writeToFile import write_to_file
+import subprocess
 
 AUTOSUB_HOME = os.path.join(os.path.expanduser(
     "~"), "dcds", "SpeechAnalyser", "AutoSub")
@@ -135,7 +136,7 @@ def main():
         print(args.file, ": No such file exists")
         sys.exit(1)
 
-    temp_directory = os.path.join(AUTOSUB_HOME, "temp")
+    temp_directory = os.path.join(AUTOSUB_HOME, "temp") #need to create path for these 2 directory
     audio_directory = os.path.join(temp_directory, "audio")
     video_file_name = input_file.split(os.sep)[-1].split(".")[0]
     audio_file_name = os.path.join(audio_directory, video_file_name + ".wav")
@@ -146,6 +147,9 @@ def main():
     if not MANUAL_MKDIR:
         os.mkdir(temp_directory)
         os.mkdir(audio_directory)
+    else:
+        subprocess.run(["mkdir",temp_directory])
+        subprocess.run(["mkdir",audio_directory])
 
     # Extract audio from input video file
     extract_audio(input_file, audio_file_name)
