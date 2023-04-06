@@ -149,9 +149,10 @@ def main():
         os.mkdir(audio_directory)
     else:
         subprocess.run(["mkdir",temp_directory])
+        subprocess.run(["chmod","777",temp_directory])
         subprocess.run(["mkdir",audio_directory])
-        subprocess.run(["chmod 777",temp_directory])
-        subprocess.run(["chmod 777",audio_directory])
+        
+        subprocess.run(["chmod","777",audio_directory])
 
     # Extract audio from input video file
     extract_audio(input_file, audio_file_name)
